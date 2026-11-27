@@ -1,0 +1,29 @@
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index ebd77cc..5a949a9 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -1,13 +1,6 @@
+-include(FetchContent)
+-
+-# Download GoogleTest if not already present
+-# See https://google.github.io/googletest/quickstart-cmake.html
+-FetchContent_Declare(
+-    googletest
+-    URL                    https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
+-    DOWNLOAD_EXTRACT_TIMESTAMP true
+-)
+-FetchContent_MakeAvailable(googletest)
++enable_testing()
++
++find_package(GTest REQUIRED)
+ 
+ # Compile project protobuf files
+ include(../cmake/CompileProtobuf.cmake)
+@@ -109,4 +102,6 @@ endif()
+ 
+ # Discover and register tests
+ include(GoogleTest)
+-gtest_discover_tests(schemaregistry-test)
++gtest_discover_tests(schemaregistry-test
++  DISCOVERY_MODE PRE_TEST
++)

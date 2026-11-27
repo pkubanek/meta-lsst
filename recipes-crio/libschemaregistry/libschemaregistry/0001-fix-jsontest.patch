@@ -1,0 +1,24 @@
+commit eaf4571ba07e764996753639a5b730d1d1393772 (HEAD -> pure_cmake, origin/pure_cmake)
+Author: Petr Kubánek <petr.kubanek@noirlab.edu>
+Date:   Thu Nov 19 17:13:07 2026 -0300
+
+    Do not build tests for RULES when those aren´t build.
+
+diff --git a/test/JsonTest.cpp b/test/JsonTest.cpp
+index 0e072e3..6fc1982 100644
+--- a/test/JsonTest.cpp
++++ b/test/JsonTest.cpp
+@@ -1880,6 +1880,7 @@ TEST(JsonTest, JsonSerdeWithAssociatedNameStrategyCaching) {
+     }
+ }
+ 
++#ifdef SCHEMAREGISTRY_USE_RULES
+ 
+ /**
+  * The `message` binding inside a `CEL_FIELD` rule is the *containing object*, not the field
+@@ -1939,3 +1940,5 @@ TEST(JsonTest, CelFieldMessageBindingIsTheContainingObject) {
+     // The must-pass twin: `value` is still the field the rule is applied to.
+     EXPECT_EQ(run("jsonmsg2", "name == 'stringField' ; value + '!'"), "hi!");
+ }
++
++#endif
